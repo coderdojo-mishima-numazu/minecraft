@@ -1,13 +1,15 @@
 version: '3'
 
 services:
-  mc:
+  minecraft-server:
     image: itzg/minecraft-server
-    container_name: mc
+    container_name: minecraft
+    # サーバー、Dockerデーモンの再起動でマイクラサーバーも起動します。
     restart: always
     environment:
+      # eula(ソフトウェア使用許諾契約)に同意します。
       - EULA=TRUE
     volumes:
       - /var/mc_data:/data
     ports:
-      - 80:25565
+      - 25565:25565
