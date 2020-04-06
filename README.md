@@ -52,4 +52,4 @@ ubuntu@ubuntu:~$ . setupMinecraftServer.sh
 ## 運用について
 
 - 1日に1回再起動します。
-- データのバックアップを取ります。
+- データのバックアップを行います。
