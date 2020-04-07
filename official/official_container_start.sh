@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ../setup/setupMinecraftServer.sh
+source ../setup/install_docker.sh
 
 install_docker
 
@@ -10,5 +10,5 @@ sudo mkdir /var/mc_official_data/
 
 # Minecraftコンテナを起動します。
 
-cd $(cd $(dirname $0); pwd)
+cd $(cd $(dirname -- $0); pwd)
 docker-compose up -d
