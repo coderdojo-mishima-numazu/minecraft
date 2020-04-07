@@ -10,6 +10,6 @@ services:
       # eula(ソフトウェア使用許諾契約)に同意します。
       - EULA=TRUE
     volumes:
-      - /var/mc_data:/data
+      - /var/mc_Official_data:/data
     ports:
-      - 25565:25565
+      - 80:25565

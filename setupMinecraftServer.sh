@@ -23,19 +23,19 @@ sudo gpasswd -a $USER docker
 sudo chmod 766 /var/run/docker.sock
 
 # Docker-Composeをインストールします。
-
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+COMPOSE_VERSION='1.25.4'
+sudo curl -L "https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 sudo chmod 755 /usr/local/bin/docker-compose
 
 # Mincraftのデータをホストに保存します。
 
-mkdir /var/mc_data/
+sudo mkdir /var/mc_official_data/
 
 # FWで25565番ポートを許可します。
 
-sudo iptables -A INPUT -p tcp –dport 25565 -j ACCEPT
-sudo service iptables save
+sudo iptables -A INPUT -p tcp --dport 25565 -j ACCEPT
+sudo /etc/init.d/netfilter-persistent save
 
 # Minecraftコンテナを起動します。
 
