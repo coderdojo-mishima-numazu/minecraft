@@ -1,3 +1,9 @@
+#!/bin/bash
+
+source ../setup/setupMinecraftServer.sh
+
+install_docker
+
 # Mincraftのデータとホストを同期するディレクトリを作ります。
 
 sudo mkdir /var/mc_official_data/
