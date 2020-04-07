@@ -8,7 +8,8 @@ services:
     restart: always
     environment:
       # eula(ソフトウェア使用許諾契約)に同意します。
-      - EULA=TRUE
+      EULA: "TRUE"
+      VERSION: "LATEST"
     volumes:
       - /var/mc_Official_data:/data
     ports:
