@@ -6,17 +6,19 @@ source ../setup/usedPort.sh
 d_cmd=$(type -P docker)
 d_com_cmd=$(type -P docker-compose)
 
-if [ -n "$d_cmd" ]; then
+if [ -z "$d_cmd" ]; then
     install_docker
 else
     echo "dockerは既にインストールされています。"
 fi
 
-if [ -n "$d_com_cmd" ]; then
+if [ -z "$d_com_cmd" ]; then
     install_docker_compose
 else
     echo "docker-composeは既にインストールされています。"
 fi
+
+sudo apt autoremove
 
 docker-compose stop
 docker-compose rm -fs
