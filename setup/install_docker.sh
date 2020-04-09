@@ -12,7 +12,8 @@ function install_docker()
     apt-transport-https \
     ca-certificates \
     curl \
-    software-properties-common
+    software-properties-common \
+    tree
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -24,6 +25,10 @@ function install_docker()
     sudo gpasswd -a $USER docker
 
     sudo chmod 766 /var/run/docker.sock
+}
+
+function install_docker_compose()
+{
 
     # Docker-Composeをインストールします。
 

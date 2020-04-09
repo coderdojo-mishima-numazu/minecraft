@@ -1,12 +1,14 @@
 # マインクラフトサーバー構築方法(CoderDojoのさくらレンタルサーバー向け)
 
-「さくらのクラウド」にマインクラフトサーバー(以下マイクラサーバー)を構築方法を記述します。
+「さくらのクラウド」にマインクラフトサーバー(以下マイクラサーバー)構築方法を記述します。
 マイクラサーバーを初めて建てる方は以下のライセンス条項を確認してください。
 [MINECRAFT エンド ユーザー ライセンス条項](https://account.mojang.com/documents/minecraft_eula)
 
 ## サーバー構成
 
-UbuntuにDocker
+Dockerでマイクラサーバーを立てます。
+Ubuntu(ホスト)サーバーの80番ポートが、マイクラサーバーに25565番ポートにマッピングされます。
+設定ファイルは/var/mc_Official_data/にあります。
 
 ## 構築手順
 
@@ -32,24 +34,36 @@ ubuntu@ubuntu:~$ git clone https://github.com/coderdojo-mishima-numazu/minecraft
 
 ```
 
-そうすると、minecraftというディレクトリができるので、移動します。
+そうすると、minecraftというディレクトリができます。その中の、officailディレクトに移動します。
 
 ```sh
-ubuntu@ubuntu:~$ cd minecraft
+ubuntu@ubuntu:~$ cd minecraft/official
 ```
 
-setupMinecraftServer.shというシェルスクリプトを実行してマイクラサーバーを構築、起動します。デフォルトでは最新バージョンのマイクラサーバーが起動します。
+official_build.shというシェルスクリプトを実行してマイクラサーバーを構築、起動します。デフォルトでは公式の最新バージョンのマイクラサーバーが起動します。
 
 ```sh
-ubuntu@ubuntu:~$ . setupMinecraftServer.sh
+ubuntu@ubuntu:~$ . official_build.sh
 ```
 
 クライアントで接続確認します。接続できるのは製品版のみです。
 
-サーバーのIPアドレス
+![title](https://user-images.githubusercontent.com/62791055/78687916-9fd23a00-792f-11ea-94b4-4d588273dd95.png)
 
+![multi](https://user-images.githubusercontent.com/62791055/78687940-a660b180-792f-11ea-8069-1ac6b1bd9dfb.png)
 
-## 運用について
+![server](https://user-images.githubusercontent.com/62791055/78688134-e6c02f80-792f-11ea-9638-8c7243f119d8.png)
 
-- 1日に1回再起動します。
-- データのバックアップを行います。
+サーバーアドレスに「サーバーのIPアドレス:80」を入力します。サーバー名は任意です。
+
+## サーバーの再起動
+
+```sh
+ubuntu@ubuntu:~$ cd minecraft/official
+ubuntu@ubuntu:~$ docker-compose restart
+```
+
+## サーバーの設定ファイル
+
+設定ファイルは/var/mc_Official_data/にあります。
+ここのファイルを修正するとサーバー側に同期されます。設定後サーバーの再起動が必要です。
