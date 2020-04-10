@@ -20,7 +20,6 @@ fi
 
 sudo apt -y autoremove
 
-docker-compose stop
 docker-compose rm -fs
 
 isUsedPort 80
@@ -28,10 +27,6 @@ if [ $? -ne 0 ]; then
     echo "80番ポートが使用中のため、インストール中止しました。"
     exit 1
 fi
-
-# Mincraftのデータとホストを同期するディレクトリを作ります。
-
-sudo mkdir -p /var/mc_official_data/
 
 # Minecraftコンテナを起動します。
 
