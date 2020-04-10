@@ -20,7 +20,7 @@ function install_docker()
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
     yes | sudo apt update
-    yes | sudo apt install -y docker-ce
+    yes | sudo apt install docker-ce
 
     sudo gpasswd -a $USER docker
 

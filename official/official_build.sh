@@ -18,7 +18,7 @@ else
     echo "docker-composeは既にインストールされています。"
 fi
 
-sudo apt -y autoremove
+yes | sudo apt autoremove
 
 docker-compose rm -fs
 
