@@ -1,30 +1,35 @@
-# マインクラフトサーバー構築方法(CoderDojoのさくらレンタルサーバー向け)
+# マインクラフトサーバー構築方法 (CoderDojoの[DojoPaaS](https://github.com/coderdojo-japan/dojopaas)利用者向け)
 
-「さくらのクラウド」にマインクラフトサーバー(以下マイクラサーバー)構築方法を記述します。<br>
-マイクラサーバーを初めて建てる方は以下のライセンス条項を確認してください。<br>
+CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/dojopaas) を使って、<br>
+マインクラフトサーバー (以下マイクラサーバー) をカンタンに構築するスクリプトです。
+
+マイクラサーバーを初めて構築する方は、以下のライセンス条項を確認してください。<br>
 [MINECRAFT エンド ユーザー ライセンス条項](https://account.mojang.com/documents/minecraft_eula)
 
-> 私はサーバーはもちろん、マイクラ自体も初心者のため、不備があればご指摘ください。
+> *私はサーバーはもちろん、マイクラ自体も初心者のため、不備があればご指摘ください。*
 
-## マイクラサーバーについて
+## 本スクリプト使ったマイクラサーバー構築の流れ
 
-**よくわからなければ読み飛ばして結構です。
+**よくわからなければ読み飛ばして結構です。スクリプトを実行するだけ
 
-Dockerでマイクラサーバーを立てます。<br>
-Ubuntu(ホスト)の80番ポートが、マイクラサーバーに25565番ポートにマッピングされます。<br>
-設定ファイルは/var/mc_official_data/にあり、Dockerのボリュームに設定されています。
+本スクリプトでは次の流れでマイクラサーバーを立てます。
 
-今の所公式版のみです。今後、色々な派生サーバーを試せたらなと思います。<br>
+1. Docker でマイクラサーバーを立てます
+   - 使用する Docker イメージは [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server/) です。
+   - ドキュメントを読むとパラメータを変えるだけで色々なタイプのマイクラサーバーが起動できるようです。感謝。
+1. Ubuntu (ホスト) 8の0番ポートを、マイクラサーバー用の25565番ポートにマッピングします
+   - 詳細は [official](https://github.com/coderdojo-mishima-numazu/minecraft/tree/master/official) ディレクトリと [setup](https://github.com/coderdojo-mishima-numazu/minecraft/tree/master/setup) ディレクトリでご確認できます。
+1. マイクラサーバーの設定ファイルは `/var/mc_official_data/` にあります (Docker ボリュームとしてマウントされています)
+   - 設定ファイルについてはあとで説明します。
 
-### 使用したDockerイメージ
-
-itzg/minecraft-server(https://hub.docker.com/r/itzg/minecraft-server/)
-
-ドキュメントを読むとパラメータを変えるだけで色々なタイプのマイクラサーバーが起動できるようです。感謝。
+今のところ公式版のみです。今後、色々な派生サーバーを試せたらなと思います。<br>
 
 ## 構築手順
 
-SSHでログインします。
+CoderDojo 向けに提供されている DojoPaaS を使って、まずはサーバーを作っておきます。<br>
+DojoPaaS の使い方は [coderdojo-japan/dojopaas](https://github.com/coderdojo-japan/dojopaas) をご参照ください。
+
+サーバーが無事作れたら、SSH でサーバーにログインします。
 
 ```sh
 Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-142-generic x86_64)
@@ -39,21 +44,21 @@ Last login: Sat Apr  4 07:50:39 2020 from 123.1.58.13
 ubuntu@ubuntu:~$
 ```
 
-以下のコマンドを実行します。実行する場所は任意ですが、よくわからなければログインした場所(homeディレクトリ)で行って構いません。
+以下のコマンドを実行します。実行する場所は任意ですが、よくわからなければログインした場所 (`home`ディレクトリ) 大丈夫です。
 
 ```sh
 ubuntu@ubuntu:~$ git clone https://github.com/coderdojo-mishima-numazu/minecraft.git
 
 ```
 
-そうすると、minecraftというディレクトリができます。その中の、officailディレクトに移動します。
+そうすると `minecraft` というディレクトリができます。その中の `officail` ディレクトリに移動します。
 
 ```sh
 ubuntu@ubuntu:~$ cd minecraft/official
 ```
 
-official_build.shというシェルスクリプトを実行してマイクラサーバーをインストール、起動します。デフォルトでは公式の最新バージョンです。<br>
-数分待つと最後に、「Creating minecraft ... done」と表示されれば成功です。
+`official_build.sh` というシェルスクリプトを実行します。するとマイクラサーバーのインストールと起動が行われます。<br>
+デフォルトでは公式の最新バージョンです。数分待って、最後に **『Creating minecraft ... done』** と表示されれば成功です。
 
 ```sh
 ubuntu@ubuntu:~$ . official_build.sh
@@ -67,7 +72,7 @@ Status: Downloaded newer image for itzg/minecraft-server:latest
 Creating minecraft ... done
 ```
 
-クライアントで接続確認します。接続できるのは製品版のみです。
+最後に Minecraft アプリ (クライアント) を立ち上げ、接続確認します。接続できるのは製品版のみです。
 
 ![title](https://user-images.githubusercontent.com/62791055/78687916-9fd23a00-792f-11ea-94b4-4d588273dd95.png)
 
@@ -75,27 +80,34 @@ Creating minecraft ... done
 
 ![server](https://user-images.githubusercontent.com/62791055/78688134-e6c02f80-792f-11ea-9638-8c7243f119d8.png)
 
-サーバーアドレスに「サーバーのIPアドレス:80」を入力します。サーバー名は任意です。
+サーバーアドレスに『`サーバーのIPアドレス:80`』を入力します。サーバー名は任意です。
 
-## マイクラサーバーの設定ファイル
+以上でマイクラサーバーの立ち上げは終了です。お疲れ様でした!
 
-設定ファイルは/var/mc_official_data/にあります。<br>
+## マイクラサーバーの
+
+マイクラサーバーの設定ファイルや、起動・停止コマンドなどについてまとめてます。<br>
+
+
+### マイクラサーバーの設定ファイル
+
+設定ファイルは `/var/mc_official_data/`にあります。<br>
 ここのファイルを修正し、マイクラサーバーを再起動すると反映されます。<br>
-バックアップしたい場合は、SCPなどでダウンロードしてください。
+バックアップしたい場合は `scp` コマンドなどでダウンロードしてください。
 
-## マイクラサーバーの再起動
+### マイクラサーバーの再起動
 
 ```sh
 ubuntu@ubuntu:~$ cd ~/minecraft/official;docker-compose restart
 ```
 
-## マイクラサーバーの停止
+### マイクラサーバーの停止
 
 ```sh
 ubuntu@ubuntu:~$ cd ~/minecraft/official;docker-compose stop
 ```
 
-## マイクラサーバーの全削除
+### マイクラサーバーの全削除
 
 マイクラサーバーを全部消したい時
 
@@ -103,6 +115,6 @@ ubuntu@ubuntu:~$ cd ~/minecraft/official;docker-compose stop
 ubuntu@ubuntu:~$ cd ~/minecraft/official;docker-compose down --rmi all
 ```
 
-## やった方がいいかなと思う設定
+### 他、やった方がいいかなと思う設定
 
- - ホワイトリストの有効化
+- ホワイトリストの有効化
