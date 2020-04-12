@@ -1,4 +1,4 @@
-# マインクラフトサーバー構築方法 (CoderDojoの[DojoPaaS](https://github.com/coderdojo-japan/dojopaas)利用者向け)
+# マインクラフトサーバー構築方法 ([DojoPaaS](https://github.com/coderdojo-japan/dojopaas)利用者向け)
 
 CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/dojopaas) を使って、<br>
 マインクラフトサーバー (以下マイクラサーバー) をカンタンに構築するスクリプトです。
@@ -8,7 +8,7 @@ CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/do
 
 > *私はサーバーはもちろん、マイクラ自体も初心者のため、不備があればご指摘ください。*
 
-## 本スクリプト使ったマイクラサーバー構築の流れ
+## 本スクリプトを使ったマイクラサーバー構築の流れ
 
 **よくわからなければ読み飛ばして結構です。スクリプトを実行するだけ
 
@@ -17,7 +17,7 @@ CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/do
 1. Docker でマイクラサーバーを立てます
    - 使用する Docker イメージは [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server/) です。
    - ドキュメントを読むとパラメータを変えるだけで色々なタイプのマイクラサーバーが起動できるようです。感謝。
-1. Ubuntu (ホスト) 8の0番ポートを、マイクラサーバー用の25565番ポートにマッピングします
+1. Ubuntu (ホスト) 80番ポートを、マイクラサーバー用の25565番ポートにマッピングします
    - 詳細は [official](https://github.com/coderdojo-mishima-numazu/minecraft/tree/master/official) ディレクトリと [setup](https://github.com/coderdojo-mishima-numazu/minecraft/tree/master/setup) ディレクトリでご確認できます。
 1. マイクラサーバーの設定ファイルは `/var/mc_official_data/` にあります (Docker ボリュームとしてマウントされています)
    - 設定ファイルについてはあとで説明します。
