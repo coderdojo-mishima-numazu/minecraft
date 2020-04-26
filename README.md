@@ -17,7 +17,7 @@ CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/do
 1. Docker でマイクラサーバーを立てます
    - 使用する Docker イメージは [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server/) です。
    - ドキュメントを読むとパラメータを変えるだけで色々なタイプのマイクラサーバーが起動できるようです。感謝。
-1. Ubuntu (ホスト) 8の0番ポートを、マイクラサーバー用の25565番ポートにマッピングします
+1. Ubuntu (ホスト) 80番ポートを、マイクラサーバー用の25565番ポートにマッピングします
    - 詳細は [official](https://github.com/coderdojo-mishima-numazu/minecraft/tree/master/official) ディレクトリと [setup](https://github.com/coderdojo-mishima-numazu/minecraft/tree/master/setup) ディレクトリでご確認できます。
 1. マイクラサーバーの設定ファイルは `/var/mc_official_data/` にあります (Docker ボリュームとしてマウントされています)
    - 設定ファイルについてはあとで説明します。
@@ -28,8 +28,9 @@ CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/do
 
 CoderDojo 向けに提供されている DojoPaaS を使って、まずはサーバーを作っておきます。<br>
 DojoPaaS の使い方は [coderdojo-japan/dojopaas](https://github.com/coderdojo-japan/dojopaas) をご参照ください。
+また、Minecraftユーザーを1つ用意してください。
 
-サーバーが無事作れたら、SSH でサーバーにログインします。
+Minecraftユーザーとサーバーが無事作れたら、SSH でサーバーにログインします。
 
 ```sh
 Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-142-generic x86_64)
@@ -57,13 +58,23 @@ ubuntu@ubuntu:~$ git clone https://github.com/coderdojo-mishima-numazu/minecraft
 ubuntu@ubuntu:~$ cd minecraft/official
 ```
 
-`official_build.sh` というシェルスクリプトを実行します。するとマイクラサーバーのインストールと起動が行われます。<br>
-デフォルトでは公式の最新バージョンです。数分待って、最後に **『Creating minecraft ... done』** と表示されれば成功です。
+`official_build.sh` というシェルスクリプトを実行します。するとマイクラサーバーのインストールと起動が行われます。デフォルトでは公式の最新バージョンです。<br>
+数分待つと、途中で管理者ユーザーの設定を求められます。最低１ユーザー入力してください。<br>
+最後に **『Creating minecraft ... done』** と表示されれば成功です。
 
 ```sh
-ubuntu@ubuntu:~$ . official_build.sh
+ubuntu@ubuntu:~$ ./official_build.sh
 Get:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [109 kB]
 Hit:2 http://jp.archive.ubuntu.com/ubuntu xenial InRelease
+
+...
+
+登録するオペレーター(管理者)を入力してください。
+操作を選択してください。(a:追加, d:削除, y:決定 , c:キャンセル):a <-- 追加
+追加するユーザーIDを入力してください。:operator-user <-- ユーザーIDを入力
+登録するオペレーター(管理者)を入力してください。
+1. operator-user
+操作を選択してください。(a:追加, d:削除, y:決定 , c:キャンセル):y <-- ユーザーがセットされたら決定します。
 
 ...
 
@@ -72,7 +83,8 @@ Status: Downloaded newer image for itzg/minecraft-server:latest
 Creating minecraft ... done
 ```
 
-最後に Minecraft アプリ (クライアント) を立ち上げ、接続確認します。接続できるのは製品版のみです。
+最後に Minecraft アプリ (クライアント) を立ち上げ、接続確認します。接続できるのは製品版のみです。<br>
+もし、初めてサーバーを起動した場合、ログインできるのは先程設定した管理者ユーザーのみです。
 
 ![title](https://user-images.githubusercontent.com/62791055/78687916-9fd23a00-792f-11ea-94b4-4d588273dd95.png)
 
@@ -115,6 +127,19 @@ ubuntu@ubuntu:~$ cd ~/minecraft/official;docker-compose stop
 ubuntu@ubuntu:~$ cd ~/minecraft/official;docker-compose down --rmi all
 ```
 
-### 他、やった方がいいかなと思う設定
+### ホワイトリストの有効化
 
-- ホワイトリストの有効化
+ホワイトリストが無効になっていると不特定多数の人がログインできてしまいます。<br>
+管理者でログインして、以下のコマンドを打ちホワイトリストを有効化します。
+
+```
+/whitelist on
+```
+
+ホワイトリストにユーザーを追加する場合
+```
+/whitelist add user-id
+```
+
+![whitelist1](https://user-images.githubusercontent.com/62791055/80309767-ee2d7700-8811-11ea-8312-9a5d595e9158.png)
+![whitelist2](https://user-images.githubusercontent.com/62791055/80310236-9b08f380-8814-11ea-8be1-827f8ce29c82.png)
