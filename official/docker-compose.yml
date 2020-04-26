@@ -6,6 +6,8 @@ services:
     container_name: minecraft
     # サーバー、Dockerデーモンの再起動でマイクラサーバーも起動します。
     restart: always
+    env_file:
+      - ./mc.env
     environment:
       # eula(ソフトウェア使用許諾契約)に同意します。
       EULA: "TRUE"
@@ -14,3 +16,4 @@ services:
       - /var/mc_official_data:/data
     ports:
       - 80:25565
+
