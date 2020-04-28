@@ -1,4 +1,4 @@
-# マインクラフトサーバー構築方法 (CoderDojoの[DojoPaaS](https://github.com/coderdojo-japan/dojopaas)利用者向け)
+# マインクラフトサーバー構築方法 ([DojoPaaS](https://github.com/coderdojo-japan/dojopaas)利用者向け)
 
 CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/dojopaas) を使って、<br>
 マインクラフトサーバー (以下マイクラサーバー) をカンタンに構築するスクリプトです。
@@ -8,7 +8,7 @@ CoderDojo Japan が提供する [DojoPaaS](https://github.com/coderdojo-japan/do
 
 > *私はサーバーはもちろん、マイクラ自体も初心者のため、不備があればご指摘ください。*
 
-## 本スクリプト使ったマイクラサーバー構築の流れ
+## 本スクリプトを使ったマイクラサーバー構築の流れ
 
 **よくわからなければ読み飛ばして結構です。スクリプトを実行するだけ
 
